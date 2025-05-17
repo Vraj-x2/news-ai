@@ -1,0 +1,45 @@
+# === Maven/Java ===
+target/
+*.class
+*.jar
+*.war
+*.log
+
+# === Maven Wrapper ===
+.mvn/
+!**/maven-wrapper.jar
+
+# === Build Subfolders ===
+!**/src/main/**/target/
+!**/src/test/**/target/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# === Secrets ===
+src/main/resources/application-secrets.properties
+.env
+
+# === STS (Spring Tool Suite) ===
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# === IntelliJ IDEA ===
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# === NetBeans ===
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# === VS Code ===
+.vscode/

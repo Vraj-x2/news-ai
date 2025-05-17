@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>News AI | Smart Daily News</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #f1f4f9, #dff1ff);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 480px;
+            background: white;
+            padding: 30px 35px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 24px;
+            color: #333;
+        }
+        input[type="email"],
+        input[type="text"],
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+            cursor: pointer;
+        }
+        .success {
+            text-align: center;
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Get Smart News in Your Inbox</h2>
+    <form th:action="@{/send-news}" method="post" th:object="${newsRequest}">
+        <input type="email" th:field="*{email}" placeholder="Enter your email" required />
+        <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+
+        <input type="text" th:field="*{topic}" placeholder="Enter a topic (e.g., AI, Politics)" required />
+        <div class="error" th:if="${#fields.hasErrors('topic')}" th:errors="*{topic}">Topic Error</div>
+
+        <button type="submit">Send Me News</button>
+        <p class="success" th:if="${successMessage}" th:text="${successMessage}"></p>
+    </form>
+</div>
+</body>
+</html>
