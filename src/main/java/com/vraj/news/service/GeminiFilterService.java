@@ -21,20 +21,18 @@ public class GeminiFilterService {
     @Value("${gemini.api.url}")
     private String geminiApiUrl;
 
-    public String filterWithGemini(List<UnifiedNews> newsList, String topic) {
+    public String filterWithGemini(List<UnifiedNews> newsList, String topic, int count) {
+        Collections.shuffle(newsList); // Helps avoid source bias
+
         StringBuilder prompt = new StringBuilder();
-
         prompt.append("You are an expert news summarizer.\n")
-        .append("You will be given a list of articles from multiple sources (NYTimes, Reddit, AlphaVantage, NewsAPI, GNews).\n")
-        .append("Your job is to pick the **5 most diverse and relevant** articles related to the topic: \"")
-        .append(topic).append("\".\n\n")
-        .append("For each article, return:\n")
-        .append("- A clickable title in markdown format: [Title](URL)\n")
-        .append("- A short 2-4 sentence summary explaining the content.\n\n")
-        .append("Ensure articles are from a **variety of sources**. Try not to pick more than 2 from the same source. Use bullet points.\n\n")
-        .append("Here are the articles:\n\n");
-
-
+              .append("You will be given a list of articles from multiple sources (NYTimes, Reddit, AlphaVantage, etc).\n")
+              .append("Your job is to pick the top ").append(count)
+              .append(" most relevant and diverse articles about: \"").append(topic).append("\".\n\n")
+              .append("For each article, include:\n")
+              .append("- A clickable title using markdown: [Title](URL)\n")
+              .append("- A 2–4 sentence summary that explains the article's content and relevance.\n")
+              .append("Use bullet points and avoid duplicates. Ensure variety in sources.\n\n");
 
         for (int i = 0; i < newsList.size(); i++) {
             UnifiedNews news = newsList.get(i);
@@ -44,7 +42,6 @@ public class GeminiFilterService {
                   .append("URL: ").append(news.getUrl()).append("\n\n");
         }
 
-        // Build JSON request
         Map<String, Object> textMap = Map.of("text", prompt.toString());
         Map<String, Object> partsMap = Map.of("parts", List.of(textMap));
         Map<String, Object> requestBody = Map.of("contents", List.of(partsMap));
@@ -79,6 +76,6 @@ public class GeminiFilterService {
         return rawText
                 .replaceAll("\\*\\*", "") // Remove markdown bold
                 .replaceAll("\\n\\s*", "\n") // Normalize line breaks
-                .trim(); // Clean leading/trailing whitespace
+                .trim();
     }
 }

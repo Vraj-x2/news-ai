@@ -42,8 +42,9 @@ public class WebController {
             return "index";
         }
 
-        List<UnifiedNews> rawNews = aggregatorService.aggregateNews(newsRequest.getTopic());
-        String filtered = geminiService.filterWithGemini(rawNews, newsRequest.getTopic());
+        String refinedTopic = newsRequest.getTopic() + " " + (newsRequest.getSubtopic() != null ? newsRequest.getSubtopic() : "");
+        List<UnifiedNews> rawNews = aggregatorService.aggregateNews(refinedTopic);
+        String filtered = geminiService.filterWithGemini(rawNews, newsRequest.getTopic(), newsRequest.getCount());
 
         emailService.sendEmail(newsRequest.getEmail(),
                 "Your Gemini-Picked News on: " + newsRequest.getTopic(),

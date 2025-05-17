@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
-
-
 import java.util.List;
 
 @RestController
@@ -29,14 +27,10 @@ public class NewsController {
 
     @PostMapping("/send")
     public ResponseEntity<String> sendFilteredNews(@Valid @RequestBody NewsRequest request) {
-        // 1. Get raw news articles
-    	List<UnifiedNews> rawNews = aggregatorService.aggregateNews(request.getTopic());
+        String refinedTopic = request.getTopic() + " " + (request.getSubtopic() != null ? request.getSubtopic() : "");
+        List<UnifiedNews> rawNews = aggregatorService.aggregateNews(refinedTopic);
+        String filtered = geminiService.filterWithGemini(rawNews, request.getTopic(), request.getCount());
 
-
-        // 2. Use Gemini to select top 5 news
-        String filtered = geminiService.filterWithGemini(rawNews, request.getTopic());
-
-        // 3. Email the results
         emailService.sendEmail(
                 request.getEmail(),
                 "Your Curated News on: " + request.getTopic(),
