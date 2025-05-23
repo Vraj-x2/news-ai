@@ -1,64 +1,58 @@
-# 📊 Institutional Space and Resource Management Platform
+# 📰 News AI
 
-A full-stack web application built to streamline institutional resource booking and management using modern web technologies, microservices, and AI.
+A smart news aggregation and delivery platform that fetches and filters articles from multiple sources using AI, and sends personalized news to users via email.
 
 ## 🔧 Tech Stack
 
-- **Frontend:** React, TypeScript
-- **Backend:** Spring Boot (REST API, JWT, Microservices)
-- **Databases:** PostgreSQL, MongoDB
-- **Computer Vision:** YOLOv5 for real-time crowd detection
-- **Containerization:** Docker
-- **CI/CD & DevOps:** GitHub Actions (planned)
-- **Authentication:** Role-based JWT (Faculty, Student, Admin, Guest)
+- **Backend:** Spring Boot (REST API)
+- **AI Integration:** Google Gemini API
+- **News Sources:** NewsAPI, GNews, Reddit, NYTimes (planned), AlphaVantage (planned)
+- **Email Delivery:** Spring Mail (SMTP)
+- **Validation:** Jakarta Validation API
+- **Scheduler:** Spring Scheduler for periodic email delivery
+- **Deployment:** Docker, GitHub Actions (CI/CD ready)
 
 ## 🚀 Features
 
-- Real-time room & equipment booking
-- Crowd detection using AI-based computer vision
-- Smart filtering with calendar integration and waitlists
-- Role-specific access and permissions
-- Notification system for confirmations, waitlist status, and crowd alerts
-- In-app chat (AI-assisted or direct messaging)
-- Audit trails and activity logging
-- Custom dashboards for each user role
+- Accepts user input (email + topic) via REST endpoint
+- Aggregates news from multiple APIs into a unified format
+- Uses Gemini AI to filter and personalize articles based on user topic
+- Sends formatted news via email on a schedule (daily/hourly)
+- Filters subtopics using NLP for more relevant results
+- Logs errors and responses for debugging
 
 ## 📈 Impact
 
-- Reduced booking time by **40%** using real-time crowd detection
-- Scaled to support **500+ concurrent users** with containerized microservices
-- Improved space utilization and user satisfaction through smart recommendations
+- Personalized reading experience with Gemini AI filtering
+- Centralized aggregation from multiple news sources
+- Efficient automated email delivery using Spring Scheduler
 
 ## 🛠️ Setup Instructions
 
 ### Prerequisites
 
-- Node.js, Java 17+, Docker
-- PostgreSQL and MongoDB installed locally or via cloud
-- Maven and Git installed
+- Java 17+, Maven, Docker
+- API keys for GNews, NewsAPI, and Gemini AI
+- Valid SMTP configuration for email sending
 
-### Backend
-
-```bash
-cd backend
-./mvnw clean install
-docker-compose up
-```
-
-### Frontend
+### Run Locally
 
 ```bash
-cd frontend
-npm install
-npm start
+# Clone the repo
+git clone https://github.com/Vraj-x2/news-ai.git
+cd news-ai
+
+# Add API keys to application.properties
+# Run the app
+./mvnw spring-boot:run
 ```
 
 ## ☁️ Deployment
 
-- Recommended: Deploy backend to **AWS EC2**, **Railway**, or **Render**
-- Use **AWS S3** for storing media and **RDS PostgreSQL** for relational data
-- Frontend can be hosted using **Netlify**, **Vercel**, or **AWS Amplify**
+- Use **Render**, **Railway**, or **AWS EC2** for hosting the backend
+- Dockerize the app using the provided Dockerfile
+- Use **GitHub Actions** for automated testing and deployment
 
-## 👨‍💻 Authors
+## 👨‍💻 Author
 
 - Vraj Contractor – [LinkedIn](http://www.linkedin.com/in/vraj20) | [Portfolio](https://vraj-x2.github.io/Portfolio)
