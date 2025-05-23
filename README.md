@@ -43,3 +43,22 @@ A full-stack web application built to streamline institutional resource booking 
 cd backend
 ./mvnw clean install
 docker-compose up
+```
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm start
+```
+
+## ☁️ Deployment
+
+- Recommended: Deploy backend to **AWS EC2**, **Railway**, or **Render**
+- Use **AWS S3** for storing media and **RDS PostgreSQL** for relational data
+- Frontend can be hosted using **Netlify**, **Vercel**, or **AWS Amplify**
+
+## 👨‍💻 Authors
+
+- Vraj Contractor – [LinkedIn](http://www.linkedin.com/in/vraj20) | [Portfolio](https://vraj-x2.github.io/Portfolio)
